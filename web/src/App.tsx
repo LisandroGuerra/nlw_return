@@ -1,14 +1,20 @@
-function Button(props) {
-  return <button>{props.text}</button>
+
+interface ButtonProps {
+  text?: string;
+}
+
+function Button(props: ButtonProps) {
+  return <button>{props.text ?? 'Default'}</button>
 }
 
 function App() {
 
   return (
     <div>
-      <Button text="Enviar" />
-      <Button text="Receber" />
-      <Button text="Apagar" />
+      <Button text="Send" />
+      <Button text="Receive" />
+      <Button text="Delete" />
+      <Button />
     </div>
   )
 }
