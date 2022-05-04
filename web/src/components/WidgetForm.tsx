@@ -1,3 +1,5 @@
+import { CloseButton } from "./CloseButton";
+
 export function WidgetForm() {
     return (
         <div className="
@@ -6,6 +8,7 @@ export function WidgetForm() {
         w-[calc(100vw-2rem)] md:w-auto">
             <header>
                 <span className="text-xl leading-6">Deixe seu Feedback</span>
+                <CloseButton />
             </header>
             <p>Welcome</p>
             <footer className="text-xs text-neutral-400">
