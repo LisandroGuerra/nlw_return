@@ -1,9 +1,20 @@
 import { ChatTeardropDots } from 'phosphor-react'
+import { useState } from 'react'
 
 export function Widget() {
+    const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+
+    function toggleWidgetVisibility() {
+        setIsWidgetOpen(!isWidgetOpen)
+    }
+
     return (
         <div className='absolute bottom-6 right-6'>
-            <button className='
+
+            {/* {isWidgetOpen ? <p>Welcome</p> : null} */}
+            {isWidgetOpen && <p>Welcome</p>}
+
+            <button onClick={toggleWidgetVisibility} className='
             bg-brand-500  
             text-white 
             rounded-full 
