@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { ArrowLeft, Camera } from "phosphor-react"
 import { FeedbackType, feedbackTypes } from ".."
 import { CloseButton } from "../../CloseButton"
@@ -13,8 +13,17 @@ export function FeedbackContentStep(
     { feedbackType, onFeedbackRestartRequested }: FeedbackContentStepProps) {
 
     const [screenshot, setScreenshot] = useState<string | null>(null)
+    const [comment, setComment] = useState<string>('')
 
     const feedbackTypeInfo = feedbackTypes[feedbackType]
+
+    function handleSubmitFeedback(event: FormEvent) {
+        event.preventDefault()
+        console.log({
+            screenshot,
+            comment,
+        })
+    }
 
     return (
         <>
@@ -37,8 +46,9 @@ export function FeedbackContentStep(
                 <CloseButton />
             </header>
 
-            <form className="my-4 w-full">
+            <form onSubmit={handleSubmitFeedback} className="my-4 w-full">
                 <textarea
+                    onChange={event => setComment(event.target.value)}
                     className="
                         min-w-[304px] min-h-[112px] w-full text-sm
                         placeholder-zinc-400 text-zinc-100
@@ -59,11 +69,13 @@ export function FeedbackContentStep(
 
                     <button
                         type="submit"
+                        disabled={comment.length < 5}
                         className="p-2 bg-brand-500 rounded-md border-transparent
                         flex-1 flex justify-center items-center 
                         text-sm hover:bg-brand-300 transition-colors
                         focus:outline-none focus:ring-2 focus:ring-offset-2
-                        focus:ring-offset-zinc-900 focus:ring-brand-500"
+                        focus:ring-offset-zinc-900 focus:ring-brand-500
+                        disabled:opacity-50 disabled:hover:bg-brand-500"
                     >
                         Enviar feedback
                     </button>
