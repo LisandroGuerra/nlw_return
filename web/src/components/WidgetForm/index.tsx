@@ -7,6 +7,7 @@ import ideaImageUrl from "../../assets/idea.svg"
 import thoughtImageUrl from "../../assets/thought.svg"
 import { FeedbackTypeStep } from "./Steps/FeedbaclTypeStep"
 import { FeedbackContentStep } from "./Steps/FeedbackContentStep"
+import { FeedbackSuccessStep } from "./Steps/FeedbackSuccessStep"
 
 
 export const feedbackTypes = {
@@ -39,9 +40,11 @@ export type FeedbackType = keyof typeof feedbackTypes
 
 export function WidgetForm() {
     const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null)
+    const [feedbackSent, setFeedbackSent] = useState(false)
 
     function handleRestartFeedback() {
         setFeedbackType(null)
+        setFeedbackSent(false)
     }
 
     return (
@@ -52,15 +55,25 @@ export function WidgetForm() {
         w-[calc(100vw-2rem)] md:w-auto"
         >
 
+            {feedbackSent ? (
+                <FeedbackSuccessStep
+                    onFeedbackRestartRequested={handleRestartFeedback}
 
-            {!feedbackType ? (
-                <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+                />
             ) : (
-                <FeedbackContentStep
-                    feedbackType={feedbackType}
-                    onFeedbackRestartRequested={handleRestartFeedback} />
-            )
-            }
+                <>
+                    {!feedbackType ? (
+                        <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+                    ) : (
+                        <FeedbackContentStep
+                            feedbackType={feedbackType}
+                            onFeedbackRestartRequested={handleRestartFeedback}
+                            onFeedbackSent={() => setFeedbackSent(true)}
+                        />
+                    )}
+                </>
+            )}
+
 
             <footer className="text-xs text-neutral-400">
                 Feito com ♥ pela <a
