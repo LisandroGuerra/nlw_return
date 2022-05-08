@@ -43,6 +43,7 @@ export class SubmitFeedbackUseCase {
                 `<h1>Feedback-Feedget</h1>`,
                 `<p>Tipo do feedback: ${type}</p>`,
                 `<p>Cometário: ${comment}</p>`,
+                screenshot ? `<img src="${screenshot}" style="max-width: 800px" />` : 'Não enviou captura de tela',
                 `</div>`
             ].join('')
         })
